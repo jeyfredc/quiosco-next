@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+// cuando se agrega productos y Product[] quiere decir que una categoria puede tener muchos productos
+model Category{
+  id  Int   @id   @default(autoincrement())
+  name  String
+  slug  String
+  products  Product[]
+}
+
+// para relacionar Category con Product 
+// Se agrega el modelo Category seguido del @relation
+//fields es el campo de relacion de origen que en este caso es categoryId
+//references es el id de la tabla con la que se relaciona que es Category por el id
+model Product{
+  id  Int   @id   @default(autoincrement())
+  name String
+  price Float
+  image String
+  categoryId Int
+  category Category @relation(fields: [categoryId], references: [id] ) 
+}

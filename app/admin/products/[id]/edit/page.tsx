@@ -31,7 +31,7 @@ export default async function EditProductsPage({
     <>
       <Heading>Editar Producto: {product.name}</Heading>
 
-        <GoBackButton/>
+      <GoBackButton />
 
       <EditProductForm>
         <ProductForm product={product} />
